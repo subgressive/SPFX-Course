@@ -9,10 +9,19 @@
           "manifest": "./src/webparts/helloMonkey/HelloMonkeyWebPart.manifest.json"
         }
       ]
+    },
+    "nasa-apollo-mission-viewer-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/nasaApolloMissionViewer/NasaApolloMissionViewerWebPart.js",
+          "manifest": "./src/webparts/nasaApolloMissionViewer/NasaApolloMissionViewerWebPart.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
   "localizedResources": {
-    "HelloMonkeyWebPartStrings": "lib/webparts/helloMonkey/loc/{locale}.js"
+    "HelloMonkeyWebPartStrings": "lib/webparts/helloMonkey/loc/{locale}.js",
+    "NasaApolloMissionViewerWebPartStrings": "lib/webparts/nasaApolloMissionViewer/loc/{locale}.js"
   }
 }
