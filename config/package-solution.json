@@ -1,0 +1,11 @@
+{
+  "$schema": "https://dev.office.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "subgressive-client-side-solution",
+    "id": "2096bc78-c6f8-450a-8f89-ae69b60d0770",
+    "version": "1.0.0.0"
+  },
+  "paths": {
+    "zippedPackage": "solution/subgressive.sppkg"
+  }
+}
