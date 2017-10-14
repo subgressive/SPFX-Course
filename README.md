@@ -15,18 +15,12 @@ Andrew McConnell's SPFx Course Repo
 
 npm install @microsoft/generator-sharepoint@latest -g
 
-## Create Webparts from cmd line
+### Create Webparts from cmd line
 
 1. Cmder, cd c:\github\course , mkdir <name> , cd <name>
-2. code .
-3. yo @microsoft/sharepoint --skip-install ( add modules later ) 
-
-### Create web-parts from inside Visual Code
-
-1. Cmder, cd c:\github\course , mkdir <name> , cd <name>
-2. code .
-3. cntrl shift ~   ( opens integrated command window )
-4. yo @microsoft/sharepoint ( from the console window, allows editing while install continues )
+2. yo @microsoft/sharepoint --skip-install
+3. code .        ( can start editing src )
+4. npm install   ( installs all modules ) 
 
 ### GitHub Commands
 
