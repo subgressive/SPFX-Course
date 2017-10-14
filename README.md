@@ -1,6 +1,6 @@
 ## subgressive
 
-This is where you include your WebPart documentation.
+Andrew McConnell's SPFx Course Repo
 
 ### Building the code
 
