@@ -46,10 +46,16 @@ This package produces the following:
 * dist/* - the bundled script, along with other resources
 * deploy/* - all resources which should be uploaded to a CDN.
 
-### Build options
+### gulp options
 
-gulp clean - TODO
-gulp test - TODO
-gulp serve - TODO
-gulp bundle - TODO
-gulp package-solution - TODO
+gulp --tasks
+gulp trust-dev-cert
+gulp clean
+gulp test
+gulp serve
+
+### gulp build options
+
+gulp bundle
+gulp package-solution
+
