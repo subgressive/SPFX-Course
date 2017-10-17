@@ -13,8 +13,15 @@ export interface INasaApolloMissionViewerWebPartProps {
   description: string;
 }
 
+import { IMission } from '../../models';
+import { MissionService } from '../../services';
+
 export default class NasaApolloMissionViewerWebPartWebPart extends BaseClientSideWebPart<INasaApolloMissionViewerWebPartProps> {
 
+  private selectedMission: IMission = this._getSelectedMission();
+
+  private missionDetailelement: HTMLElement;
+  
   public render(): void {
     this.domElement.innerHTML = `
       <div class="${styles.nasaApolloMissionViewer}">
@@ -24,13 +31,19 @@ export default class NasaApolloMissionViewerWebPartWebPart extends BaseClientSid
               <span class="ms-font-xl ms-fontColor-white">Welcome to SharePoint!</span>
               <p class="ms-font-l ms-fontColor-white">Customize SharePoint experiences using Web Parts.</p>
               <p class="ms-font-l ms-fontColor-white">${escape(this.properties.description)}</p>
-              <a href="https://aka.ms/spfx" class="${styles.button}">
-                <span class="${styles.label}">Learn more</span>
-              </a>
+              <div id="apolloMissionDetail"></div>
             </div>
           </div>
         </div>
       </div>`;
+    this.missionDetailelement = document.getElementById('apolloMissionDetail');
+
+    // show mission details if one found, otherwise show empty
+    if (this.selectedMission) {
+      this._renderMissionDetails(this.missionDetailelement, this.selectedMission);
+    } else {
+      this.missionDetailelement.innerHTML = '';
+    }
   }
 
   protected get dataVersion(): Version {
@@ -58,4 +71,49 @@ export default class NasaApolloMissionViewerWebPartWebPart extends BaseClientSid
       ]
     };
   }
+
+  private _getSelectedMission(): IMission {
+    const selectedMissionId: string = 'AS-507';
+
+    return MissionService.getMission(selectedMissionId);
+  }
+
+    /**
+   * Display the specified mission details in the provided DOM element.
+   *
+   * @private
+   * @param {HTMLElement} element   DOM element where the details should be written to.
+   * @param {IMission}    mission   Apollo mission to display.
+   * @memberof ApolloViewerWebPart
+   */
+  private _renderMissionDetails(element: HTMLElement, mission: IMission): void {
+    element.innerHTML = `
+      <p class="ms-font-m">
+        <span class="ms-fontWeight-semibold">Mission: </span>
+        ${escape(mission.name)}
+      </p>
+      <p class="ms-font-m">
+        <span class="ms-fontWeight-semibold">Duration: </span>
+        ${escape(this._getMissionTimeline(mission))}
+      </p>
+      <a href="${mission.wiki_href}" target="_blank" class="${styles.button}">
+        <span class="${styles.label}">Learn more about ${escape(mission.name)} on Wikipedia &raquo;</span>
+      </a>`;
+  }
+
+  /**
+   * Returns the duration of the mission.
+   *
+   * @private
+   * @param     {IMission}  mission  Apollo mission to use.
+   * @returns   {string}             Mission duration range in the format of [start] - [end].
+   * @memberof  ApolloViewerWebPart
+   */
+  private _getMissionTimeline(mission: IMission): string {
+    let missionDate = mission.end_date !== ''
+      ? `${mission.launch_date.toString()} - ${mission.end_date.toString()}`
+      : `${mission.launch_date.toString()}`;
+    return missionDate;
+  }
+
 }
