@@ -20,7 +20,8 @@
     "description": { "default": "Nasa Apollo Mission Viewer" },
     "officeFabricIconFontName": "Airplane",
     "properties": {
-      "description": "Course demo to view Nasa Apollo missions"
+      "description": "Course demo to view Nasa Apollo missions",
+      "selectedMission" : "AS-506"
     }
   }]
 }

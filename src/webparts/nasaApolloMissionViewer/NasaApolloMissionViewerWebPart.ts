@@ -11,6 +11,7 @@ import * as strings from 'NasaApolloMissionViewerWebPartStrings';
 
 export interface INasaApolloMissionViewerWebPartProps {
   description: string;
+  selectedMission : string;
 }
 
 import { IMission } from '../../models';
@@ -18,7 +19,19 @@ import { MissionService } from '../../services';
 
 export default class NasaApolloMissionViewerWebPartWebPart extends BaseClientSideWebPart<INasaApolloMissionViewerWebPartProps> {
 
-  private selectedMission: IMission = this._getSelectedMission();
+  private selectedMission: IMission;
+  
+  protected onInit(): Promise<void>{
+    return new Promise<void>(
+      (
+        resolve: () => void,
+        reject: (error: any) => void
+      ): void => {
+        this.selectedMission = this._getSelectedMission();
+        resolve();  
+      }
+    );
+  }  
 
   private missionDetailelement: HTMLElement;
   
@@ -63,6 +76,9 @@ export default class NasaApolloMissionViewerWebPartWebPart extends BaseClientSid
               groupFields: [
                 PropertyPaneTextField('description', {
                   label: strings.DescriptionFieldLabel
+                }),
+                PropertyPaneTextField('selectedMission', {
+                  label: 'Enter mission to display'
                 })
               ]
             }
@@ -73,7 +89,8 @@ export default class NasaApolloMissionViewerWebPartWebPart extends BaseClientSid
   }
 
   private _getSelectedMission(): IMission {
-    const selectedMissionId: string = 'AS-507';
+    const selectedMissionId: string = (this.properties.selectedMission)
+    ? this.properties.selectedMission : 'AS-507';
 
     return MissionService.getMission(selectedMissionId);
   }
