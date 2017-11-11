@@ -2,7 +2,8 @@ import { Version } from '@microsoft/sp-core-library';
 import {
   BaseClientSideWebPart,
   IPropertyPaneConfiguration,
-  PropertyPaneTextField
+  PropertyPaneTextField,
+  IPropertyPaneTextFieldProps
 } from '@microsoft/sp-webpart-base';
 import { escape } from '@microsoft/sp-lodash-subset';
 
@@ -41,8 +42,7 @@ export default class NasaApolloMissionViewerWebPartWebPart extends BaseClientSid
         <div class="${styles.container}">
           <div class="ms-Grid-row ms-bgColor-themeDark ms-fontColor-white ${styles.row}">
             <div class="ms-Grid-col ms-lg10 ms-xl8 ms-xlPush2 ms-lgPush1">
-              <span class="ms-font-xl ms-fontColor-white">Welcome to SharePoint!</span>
-              <p class="ms-font-l ms-fontColor-white">Customize SharePoint experiences using Web Parts.</p>
+              <span class="ms-font-xl ms-fontColor-white">Apollo Mission Viewer</span>
               <p class="ms-font-l ms-fontColor-white">${escape(this.properties.description)}</p>
               <div id="apolloMissionDetail"></div>
             </div>
@@ -77,8 +77,8 @@ export default class NasaApolloMissionViewerWebPartWebPart extends BaseClientSid
                 PropertyPaneTextField('description', {
                   label: strings.DescriptionFieldLabel
                 }),
-                PropertyPaneTextField('selectedMission', {
-                  label: 'Enter mission to display'
+                PropertyPaneTextField('selectedMission', <IPropertyPaneTextFieldProps>{
+                  label: 'Enter mission to show'
                 })
               ]
             }
@@ -86,6 +86,22 @@ export default class NasaApolloMissionViewerWebPartWebPart extends BaseClientSid
         }
       ]
     };
+  } // getPropertyPaneConfiguration
+
+  protected get disableReactivePropertyChanges(): boolean {
+    return true;
+  }
+
+  protected onAfterPropertyPaneChangesApplied(): void {
+    // update the selected mission
+    this.selectedMission = this._getSelectedMission();
+
+    // update rendering
+    if (this.selectedMission) {
+      this._renderMissionDetails(this.missionDetailelement, this.selectedMission);
+    } else {
+      this.missionDetailelement.innerHTML = '';
+    }
   }
 
   private _getSelectedMission(): IMission {
