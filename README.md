@@ -20,7 +20,14 @@ npm install @microsoft/generator-sharepoint@latest -g
 1. Cmder, cd c:\github\course , mkdir <name> , cd <name>
 2. yo @microsoft/sharepoint --skip-install
 3. code .        ( can start editing src )
-4. npm install   ( installs all modules ) 
+4. npm install   ( installs all modules )
+
+### Install any dependencies such as jQuery
+
+1. npm install jquery@1.12.4 --save
+2. npm install datatables@1.10.13 --save
+3. npm install @types/jquery@1.10.33 --save-dev
+ 
 
 ### GitHub Commands
 

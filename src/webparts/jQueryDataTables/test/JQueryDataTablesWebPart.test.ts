@@ -2,7 +2,7 @@
 
 import { assert } from 'chai';
 
-describe('HelloMonkeyWebPart', () => {
+describe('JQueryDataTablesWebPart', () => {
   it('should do something', () => {
     assert.ok(true);
   });

@@ -2,14 +2,6 @@
   "$schema": "https://dev.office.com/json-schemas/spfx-build/config.2.0.schema.json",
   "version": "2.0",
   "bundles": {
-    "hello-monkey-web-part": {
-      "components": [
-        {
-          "entrypoint": "./lib/webparts/helloMonkey/HelloMonkeyWebPart.js",
-          "manifest": "./src/webparts/helloMonkey/HelloMonkeyWebPart.manifest.json"
-        }
-      ]
-    },
     "nasa-apollo-mission-viewer-web-part": {
       "components": [
         {
@@ -17,11 +9,31 @@
           "manifest": "./src/webparts/nasaApolloMissionViewer/NasaApolloMissionViewerWebPart.manifest.json"
         }
       ]
+    },
+    "j-query-data-tables-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/jQueryDataTables/JQueryDataTablesWebPart.js",
+          "manifest": "./src/webparts/jQueryDataTables/JQueryDataTablesWebPart.manifest.json"
+        }
+      ]
     }
   },
-  "externals": {},
+  "externals": {
+    "jquery": {
+      "path": "https://code.jquery.com/jquery-1.12.4.js",
+      "globalName": "jQuery"
+    },
+    "datatables": {
+      "path": "https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js",
+      "globalName": "jQuery",
+      "globalDependencies": [
+          "jquery"  
+      ]
+    }
+  },
   "localizedResources": {
-    "HelloMonkeyWebPartStrings": "lib/webparts/helloMonkey/loc/{locale}.js",
-    "NasaApolloMissionViewerWebPartStrings": "lib/webparts/nasaApolloMissionViewer/loc/{locale}.js"
+    "NasaApolloMissionViewerWebPartStrings": "lib/webparts/nasaApolloMissionViewer/loc/{locale}.js",
+    "JQueryDataTablesWebPartStrings": "lib/webparts/jQueryDataTables/loc/{locale}.js"
   }
 }

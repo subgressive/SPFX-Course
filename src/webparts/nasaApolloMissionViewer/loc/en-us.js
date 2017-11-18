@@ -1,7 +1,7 @@
 define([], function() {
   return {
     "PropertyPaneDescription": "Properties for the Viewer",
-    "BasicGroupName": "Group Name",
+    "BasicGroupName": "Mission Details",
     "DescriptionFieldLabel": "Description Field"
   }
 });

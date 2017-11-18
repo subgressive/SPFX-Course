@@ -3,7 +3,8 @@ import {
   BaseClientSideWebPart,
   IPropertyPaneConfiguration,
   PropertyPaneTextField,
-  IPropertyPaneTextFieldProps
+  IPropertyPaneTextFieldProps,
+  PropertyPaneLabel
 } from '@microsoft/sp-webpart-base';
 import { escape } from '@microsoft/sp-lodash-subset';
 
@@ -70,23 +71,46 @@ export default class NasaApolloMissionViewerWebPartWebPart extends BaseClientSid
           header: {
             description: strings.PropertyPaneDescription
           },
+          displayGroupsAsAccordion: true,
           groups: [
+            // <group 1>
             {
               groupName: strings.BasicGroupName,
+              isCollapsed: true,
               groupFields: [
                 PropertyPaneTextField('description', {
                   label: strings.DescriptionFieldLabel
                 }),
                 PropertyPaneTextField('selectedMission', <IPropertyPaneTextFieldProps>{
-                  label: 'Enter mission to show'
+                  label: 'Enter mission to show',
+                  onGetErrorMessage: this._validateMissionCode.bind(this)
                 })
               ]
+            },
+            // </group 1>
+            // <group 2>
+            {
+              groupName: 'Mission Information',
+              isCollapsed: true,
+              groupFields: [
+                PropertyPaneLabel('',{
+                  text: 'Project Apollo, was the third United States human spaceflight program carried out by NASA, which accomplished landing the first humans on the Moon from 1969 to 1972'
+                }) 
+              ]
             }
-          ]
+            // </group 2>
+          ] // groups[]
         }
-      ]
+      ] // pages[]
     };
   } // getPropertyPaneConfiguration
+
+  private _validateMissionCode(value: string): string {
+    const validMissionCodeRegEx = /AS-[2,5][0,1][0-9]/g
+    return value.match(validMissionCodeRegEx)
+    ? ''
+    : 'Invalid mssion code: Shoud be in format \'AS-###\'.';
+  }
 
   protected get disableReactivePropertyChanges(): boolean {
     return true;
